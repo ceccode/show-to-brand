@@ -106,7 +106,14 @@ export default function App() {
         toast.error('Provide input first');
       }
     } catch (e: any) {
-      toast.error(e?.response?.data?.message || 'Analyze failed');
+      if (e?.response?.data?.code === 'OPENAI_KEY_MISSING') {
+        toast.error(
+          'OpenAI API key is required when using LLM mode. Please enter your API key in the header field or disable LLM mode.', 
+          { duration: 6000 }
+        );
+      } else {
+        toast.error(e?.response?.data?.message || 'Analyze failed');
+      }
     } finally {
       setLoading('idle');
     }

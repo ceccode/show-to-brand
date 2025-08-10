@@ -147,6 +147,12 @@ app.post('/api/analyze', upload.array('files'), async (req, res) => {
   } catch (err: any) {
     req.log.error({ err }, 'analyze failed');
     if (err.code === 'ECONNABORTED') return res.status(504).json({ code: 'TIMEOUT', message: 'Fetch timed out' });
+    if (err.message === 'OPENAI_API_KEY not set') {
+      return res.status(400).json({ 
+        code: 'OPENAI_KEY_MISSING', 
+        message: 'OpenAI API key is required when using LLM mode. Please provide your API key in the header field or disable LLM mode.'
+      });
+    }
     res.status(500).json({ code: 'INTERNAL', message: 'Unexpected error' });
   }
 });
