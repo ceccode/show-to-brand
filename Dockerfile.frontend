@@ -1,0 +1,10 @@
+FROM node:20-alpine AS base
+RUN corepack enable && npm i -g pnpm@9.0.0
+WORKDIR /app
+COPY package.json pnpm-lock.yaml* .npmrc* ./
+COPY app/frontend/package.json app/frontend/package.json
+RUN pnpm install -r --filter @brand-analyzer/frontend... --prefer-offline
+COPY app/frontend /app/app/frontend
+WORKDIR /app/app/frontend
+EXPOSE 5173
+CMD ["pnpm", "dev", "--host", "0.0.0.0"]

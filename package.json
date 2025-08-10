@@ -1,0 +1,19 @@
+{
+  "name": "brand-analyzer-monorepo",
+  "private": true,
+  "packageManager": "pnpm@9.0.0",
+  "workspaces": [
+    "app/frontend",
+    "app/backend"
+  ],
+  "scripts": {
+    "dev": "concurrently -n backend,frontend -c blue,green \"pnpm --filter @brand-analyzer/backend dev\" \"pnpm --filter @brand-analyzer/frontend dev\"",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "format": "pnpm -r format"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

@@ -1,0 +1,48 @@
+version: '3.9'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    image: brand-analyzer-backend
+    container_name: brand-analyzer-backend
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+      - PORT=8080
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    command: ["pnpm", "--filter", "@brand-analyzer/backend", "dev"]
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    image: brand-analyzer-frontend
+    container_name: brand-analyzer-frontend
+    ports:
+      - "5173:5173"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+      - VITE_API_BASE=/api
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    command: ["pnpm", "--filter", "@brand-analyzer/frontend", "dev"]
+
+  proxy:
+    image: nginx:1.27-alpine
+    container_name: brand-analyzer-proxy
+    depends_on:
+      - backend
+      - frontend
+    ports:
+      - "3000:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro

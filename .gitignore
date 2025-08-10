@@ -1,0 +1,28 @@
+# Dependencies
+node_modules
+pnpm-lock.yaml
+
+# Build outputs
+app/**/dist
+app/**/.vite
+app/**/coverage
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+
+# System files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDE and editor directories
+.vscode/
+.idea/
+*.sublime-*
+*.swp
+*.swo
+.history/
+*.code-workspace

@@ -1,0 +1,11 @@
+FROM node:20-alpine AS base
+RUN corepack enable && npm i -g pnpm@9.0.0
+WORKDIR /app
+COPY package.json pnpm-lock.yaml* .npmrc* ./
+COPY app/backend/package.json app/backend/package.json
+RUN pnpm install -r --filter @brand-analyzer/backend... --prefer-offline
+COPY app/backend /app/app/backend
+WORKDIR /app/app/backend
+RUN pnpm build
+EXPOSE 8080
+CMD ["pnpm", "start"]
