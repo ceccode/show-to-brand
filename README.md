@@ -1,6 +1,8 @@
-# Brand Analyzer
+# Show to Brand
 
 Monorepo with frontend (React + Vite + Tailwind) and backend (Express + TypeScript).
+
+**Demo:** [https://show-to-brand.onrender.com/](https://show-to-brand.onrender.com/)
 
 ## Quickstart (local dev)
 
@@ -60,7 +62,7 @@ OpenAI check: http://localhost:8080/api/openai/check
 
 ### Deploy to Render (single service)
 
-1. Push repo to GitHub.
+1. Clone the repository.
 2. Create a “Web Service” on Render and connect the repo.
 3. Build command:
    ```
